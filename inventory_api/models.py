@@ -54,3 +54,134 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
     def __str__(self):
         """Return string representation of user"""
         return self.email
+
+
+class Region(models.Model):
+    """Datbase model for Regions in the system"""
+    name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        """Return string representation of region"""
+        return self.name
+
+
+class Category (models.Model):
+    """Database model for categories in the system"""
+    name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        """Return string representation of category"""
+        return self.name
+
+class Brand (models.Model):
+    """Database model for brands in the system"""
+    name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        """Return string representation of brand"""
+        return self.name
+
+
+class Product(models.Model):
+    """Database model for products in the system"""
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255)
+    category = models.ForeignKey(
+        Category,
+        on_delete = models.CASCADE,
+
+    )
+    brand = models.ForeignKey(
+        Brand,
+        on_delete = models.CASCADE,
+
+
+    )
+    retail_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    sale_price = models.DecimalField(max_digits=10,
+                                    decimal_places=2,
+                                    default = 0 )
+
+    qty = models.IntegerField(default=0)
+    release_date = models.DateField(blank=True, null=True)
+    is_available = models.BooleanField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def increase_product_qty(self):
+        self.qty +=1
+        return self.qty
+
+
+    def reduce_product_qty(self):
+        self.qty -=1
+        return self.qty
+
+
+    def __str__(self):
+        """Return string representation of product"""
+        return self.name
+
+class ProductItem(models.Model):
+    """Database model for a product item in the system"""
+    product = models.ForeignKey(
+        Product,
+        on_delete = models.CASCADE,
+
+    )
+    description = models.TextField(blank=True, null=True)
+    unit_measure = models.CharField(blank=True, null=True, max_length=100)
+    measaure = models.DecimalField(max_digits=10,
+                                    decimal_places=2,
+                                    default = 0 )
+
+    unit_retail_price = models.DecimalField(max_digits=10, decimal_places=2,
+                                            null=True
+                                            )
+
+
+    unit_sale_price = models.DecimalField(max_digits=10,
+                                    decimal_places=2,
+                                    null=True )
+
+
+    def __str__(self):
+        """Return string representation of product item"""
+        return f"{self.product}: {self.id}"
+
+
+class Order(models.Model):
+    """Database model for an order in the system"""
+    date_added = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        """Return string representation of product"""
+        return self.id
+
+class OrderItem(models.Model):
+    """Database model for an order item in the system"""
+    order_id = models.ForeignKey(
+        Order,
+        on_delete = models.CASCADE,
+
+    )
+    product_item = models.ForeignKey(
+        ProductItem,
+        on_delete = models.CASCADE,
+
+    )
+    qty = models.IntegerField()
+
+    def sub_total(self):
+        return self.product_item.unit_sale_price * self.qty
+
+    def __str__(self):
+        """Return string representation of order item"""
+        return f"{self.product_item}: {self.qty}"
