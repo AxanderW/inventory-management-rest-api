@@ -22,3 +22,61 @@ class UserProfileSerializer(serializers.ModelSerializer):
         )
 
         return user
+
+
+class RegionSerializer(serializers.ModelSerializer):
+    """Serializes a region object"""
+    class Meta:
+        model = models.Region
+        fields = ('id', 'name', 'is_active',)
+
+class CategorySerializer(serializers.ModelSerializer):
+    """Serializes a category object"""
+    class Meta:
+        model = models.Category
+        fields = ('id', 'name', 'is_active',)
+
+class BrandSerializer(serializers.ModelSerializer):
+    """Serializes a Brand object"""
+    class Meta:
+        model = models.Brand
+        fields = ('id', 'name','is_active', )
+
+class ProductSerializer(serializers.ModelSerializer):
+    """Serializes a Product object"""
+    class Meta:
+        model = models.Product
+        fields = (
+                    'id', 'name', 'slug','category', 'brand',
+                    'retail_price','sale_price','qty',
+                    'release_date','is_available'
+                    )
+
+class ProductItemSerializer(serializers.ModelSerializer):
+    """Serializes a Product Item object"""
+    class Meta:
+        model = models.ProductItem
+        fields = (
+                    'id', 'product', 'description',
+                    'unit_measure', 'measaure',
+                    'unit_retail_price','unit_sale_price'
+                    )
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    """Serializes an Order object"""
+    class Meta:
+        model = models.Order
+        fields = (
+                    "__all__"
+
+                    )
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    """Serializes a region object"""
+    class Meta:
+        model = models.OrderItem
+        fields = (
+                     "__all__"
+
+                    )

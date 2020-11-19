@@ -157,31 +157,29 @@ class ProductItem(models.Model):
 
 
 class Order(models.Model):
-    """Database model for an order in the system"""
-    date_added = models.DateTimeField(auto_now_add=True)
+    order_id = models.CharField(max_length=250, blank=True)
+    date_added = models.DateField(auto_now_add = True)
     is_active = models.BooleanField(default=True)
 
+    class Meta:
+        #db_table = 'Order'
+        ordering = ('date_added',)
+
     def __str__(self):
-        """Return string representation of product"""
-        return self.id
+        return self.order_id
+
 
 class OrderItem(models.Model):
-    """Database model for an order item in the system"""
-    order_id = models.ForeignKey(
-        Order,
-        on_delete = models.CASCADE,
+    product_item = models.ForeignKey(ProductItem, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    qty = models.IntegerField(default=1)
+    is_active = models.BooleanField(default=True)
 
-    )
-    product_item = models.ForeignKey(
-        ProductItem,
-        on_delete = models.CASCADE,
 
-    )
-    qty = models.IntegerField()
 
     def sub_total(self):
         return self.product_item.unit_sale_price * self.qty
 
+
     def __str__(self):
-        """Return string representation of order item"""
-        return f"{self.product_item}: {self.qty}"
+        return f'{self.product_item.id}'

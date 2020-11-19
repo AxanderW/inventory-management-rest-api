@@ -18,6 +18,16 @@ class UpdateOwnStatus(permissions.BasePermission):
         return obj.user_profile.id == request.user.id
 
 
+
+class AccessUpdateInventory(permissions.BasePermission):
+    """Allow staff to get and modify inventory"""
+    def  has_object_permission(self, request, view, obj):
+        """ User is staff"""
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return request.user.is_staff == True
+
+
 ## TODO: create permission that allows authenticated users to get data read_only
 ## BUT restricts post and update methods to user where is_staff == True
 """

@@ -27,3 +27,65 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 class UserLoginApiView(ObtainAuthToken):
     """Handle creating user authentication tokens"""
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+
+class RegionViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading, updating region objects"""
+    authentication_classes = (TokenAuthentication, )
+    serializer_class = serializers.RegionSerializer
+    queryset= models.Region.objects.all()
+    permission_classes = (IsAuthenticated,permissions.AccessUpdateInventory)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name',)
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading, updating category objects"""
+    authentication_classes = (TokenAuthentication, )
+    serializer_class = serializers.CategorySerializer
+    queryset= models.Category.objects.all()
+    permission_classes = (IsAuthenticated,permissions.AccessUpdateInventory)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name',)
+
+class BrandViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading, updating brand objects"""
+    authentication_classes = (TokenAuthentication, )
+    serializer_class = serializers.BrandSerializer
+    queryset= models.Brand.objects.all()
+    permission_classes = (IsAuthenticated,permissions.AccessUpdateInventory)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name',)
+
+class ProductViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading, updating product objects"""
+    authentication_classes = (TokenAuthentication, )
+    serializer_class = serializers.ProductSerializer
+    queryset= models.Product.objects.all()
+    permission_classes = (IsAuthenticated,permissions.AccessUpdateInventory)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name','slug',)
+
+class ProductItemViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading, updating product item objects"""
+    authentication_classes = (TokenAuthentication, )
+    serializer_class = serializers.ProductItemSerializer
+    queryset= models.ProductItem.objects.all()
+    permission_classes = (IsAuthenticated, permissions.AccessUpdateInventory)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('description',)
+
+
+class OrderViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading, updating order objects"""
+    authentication_classes = (TokenAuthentication, )
+    serializer_class = serializers.OrderSerializer
+    queryset= models.Order.objects.all()
+    permission_classes = (IsAuthenticated,permissions.AccessUpdateInventory)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('order_id',)
+
+class OrderItemViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading, updating order items objects"""
+    authentication_classes = (TokenAuthentication, )
+    serializer_class = serializers.OrderItemSerializer
+    queryset= models.OrderItem.objects.all()
+    permission_classes = (IsAuthenticated,permissions.AccessUpdateInventory)
