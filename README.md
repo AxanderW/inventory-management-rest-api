@@ -14,7 +14,7 @@ This REST API was built in Python's Django-Restful.
 
 ### Create a profile
 
-![Sign-up](Images/signup.gif)
+![Sign-up] (Images/signup.gif)
 
 In order to access the REST API, users have to signup for an account.
 
@@ -24,7 +24,7 @@ In order to access the REST API, users have to signup for an account.
 
 ### Search for Products
 
-![Search](Images/search.gif)
+![Search] (Images/search.gif)
 
 Checkout the handy search feature !
 
