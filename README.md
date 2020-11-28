@@ -4,7 +4,7 @@
 <http://ec2-3-85-30-186.compute-1.amazonaws.com/api/>
 ## Background
 
-The purpose of this project is to build a REST API that can be integrated with the fronend e-commerce webiste, the analytics dashboard, the prodcut recommendation engine, and future applications to be added to the Inventory Management eco-system.
+The purpose of this project is to build a REST API that can be integrated with the fronend e-commerce webiste, the analytics dashboard, the product recommendation engine, and future applications to be added to the Inventory Management eco-system.
 
 ## Overview
 
