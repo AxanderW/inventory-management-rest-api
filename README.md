@@ -1,4 +1,4 @@
-# Frontend E-commerce Website | Web Application 
+# REST API | Web Application 
 
 #### Check out the live site:
 <http://ec2-3-85-30-186.compute-1.amazonaws.com/api/>
